@@ -7,6 +7,7 @@ import { Layout } from "./components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Channels from "./pages/Channels";
 import ContentCreation from "./pages/ContentCreation";
+import VideoGeneration from "./pages/VideoGeneration";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,7 +25,7 @@ const App = () => (
             <Route path="/channels/youtube" element={<Channels />} />
             <Route path="/channels/instagram" element={<Channels />} />
             <Route path="/content-creation" element={<ContentCreation />} />
-            <Route path="/generation" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Video Generation</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
+            <Route path="/generation" element={<VideoGeneration />} />
             <Route path="/publishing" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Publishing Queue</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
             <Route path="/analytics" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Analytics & Insights</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
             <Route path="/analytics/channels" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Channel Analytics</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
