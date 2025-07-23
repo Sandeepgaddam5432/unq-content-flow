@@ -8,6 +8,10 @@ import Dashboard from "./pages/Dashboard";
 import Channels from "./pages/Channels";
 import ContentCreation from "./pages/ContentCreation";
 import VideoGeneration from "./pages/VideoGeneration";
+import PublishingQueue from "./pages/PublishingQueue";
+import Analytics from "./pages/Analytics";
+import ApiManagement from "./pages/ApiManagement";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,12 +30,12 @@ const App = () => (
             <Route path="/channels/instagram" element={<Channels />} />
             <Route path="/content-creation" element={<ContentCreation />} />
             <Route path="/generation" element={<VideoGeneration />} />
-            <Route path="/publishing" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Publishing Queue</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/analytics" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Analytics & Insights</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/analytics/channels" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Channel Analytics</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/analytics/content" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Content Analytics</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/api-management" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">API Management</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
-            <Route path="/settings" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold">Settings</h1><p className="text-muted-foreground">Coming soon...</p></div>} />
+            <Route path="/publishing" element={<PublishingQueue />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/analytics/channels" element={<Analytics />} />
+            <Route path="/analytics/content" element={<Analytics />} />
+            <Route path="/api-management" element={<ApiManagement />} />
+            <Route path="/settings" element={<Settings />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

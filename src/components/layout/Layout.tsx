@@ -57,15 +57,15 @@ export function Layout({ children }: LayoutProps) {
   }, [theme]);
 
   return (
-    <SidebarProvider defaultOpen={true}>
-      <div className="min-h-screen flex w-full bg-background">
+    <SidebarProvider defaultOpen={window.innerWidth >= 1024}>
+      <div className="min-h-screen flex w-full bg-background overflow-x-hidden">
         <AppSidebar />
         
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-w-0">
           <Header />
           
           <main className="flex-1 overflow-auto">
-            <div className="container mx-auto p-6">
+            <div className="container mx-auto p-4 md:p-6 max-w-none">
               {children}
             </div>
           </main>
