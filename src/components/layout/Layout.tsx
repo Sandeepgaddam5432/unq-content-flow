@@ -1,8 +1,10 @@
+import * as React from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from '../../lib/store';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from './AppSidebar';
 import { Header } from './Header';
+import { CommandMenu } from './CommandMenu';
 import { generateMockMetrics, generateMockGenerations, generateMockNotifications } from '../../lib/store';
 
 interface LayoutProps {
@@ -71,6 +73,7 @@ export function Layout({ children }: LayoutProps) {
           </main>
         </div>
       </div>
+      <CommandMenu />
     </SidebarProvider>
   );
 }

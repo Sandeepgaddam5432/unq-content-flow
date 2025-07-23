@@ -1,4 +1,5 @@
-import { Bell, Search, User, Settings, LogOut, Moon, Sun, Monitor, Plus } from 'lucide-react';
+import * as React from 'react';
+import { Bell, Search, User, Settings, LogOut, Moon, Sun, Monitor, Plus, Command } from 'lucide-react';
 import { useState } from 'react';
 import { useAppStore } from '../../lib/store';
 import { Button } from '@/components/ui/button';
@@ -14,8 +15,9 @@ import {
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import { Badge, badgeVariants } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Notification } from '@/types';
 
 export function Header() {
   const { user, notifications, theme, setTheme, markNotificationRead } = useAppStore();
@@ -23,7 +25,7 @@ export function Header() {
   
   const unreadNotifications = notifications.filter(n => !n.read);
 
-  const handleNotificationClick = (notification: any) => {
+  const handleNotificationClick = (notification: Notification) => {
     markNotificationRead(notification.id);
     if (notification.actionUrl) {
       // Navigate to action URL
@@ -40,14 +42,36 @@ export function Header() {
   };
 
   return (
-    <header className="h-16 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+    <header className="h-16 border-b border-border/40 bg-white/30 dark:bg-black/30 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
       <div className="flex h-full items-center justify-between px-6">
         {/* Left Section */}
         <div className="flex items-center gap-4">
           <SidebarTrigger className="hover:bg-sidebar-accent" />
           
+          {/* Command Palette Trigger */}
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="hidden md:flex gap-2 text-muted-foreground"
+            onClick={() => {
+              // This will be triggered by keyboard shortcut, so the button is just visual
+              const event = new KeyboardEvent('keydown', { 
+                key: 'k', 
+                metaKey: true,
+                bubbles: true
+              });
+              document.dispatchEvent(event);
+            }}
+          >
+            <Command className="h-4 w-4" />
+            <span className="text-xs">Search...</span>
+            <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </Button>
+          
           {/* Search */}
-          <div className="relative hidden md:block">
+          <div className="relative hidden lg:block">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search channels, content, analytics..."
@@ -64,9 +88,9 @@ export function Header() {
         <div className="flex items-center gap-3">
           {/* Quick Actions */}
           <Button 
-            variant="outline" 
+            variant="gradient" 
             size="sm" 
-            className="hidden lg:flex gap-2 bg-primary text-primary-foreground hover:bg-primary-hover border-primary"
+            className="hidden lg:flex gap-2"
           >
             <Plus className="h-4 w-4" />
             Create Content
@@ -83,19 +107,18 @@ export function Header() {
               <Button variant="ghost" size="sm" className="relative">
                 <Bell className="h-4 w-4" />
                 {unreadNotifications.length > 0 && (
-                  <Badge 
-                    variant="destructive" 
-                    className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs"
-                  >
+                  <div className={badgeVariants({ variant: "destructive" }) + " absolute -top-1 -right-1 h-5 w-5 p-0 text-xs flex items-center justify-center"}>
                     {unreadNotifications.length}
-                  </Badge>
+                  </div>
                 )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-80">
               <div className="flex items-center justify-between p-3 border-b">
                 <h4 className="font-medium">Notifications</h4>
-                <Badge variant="secondary">{unreadNotifications.length} new</Badge>
+                <div className={badgeVariants({ variant: "secondary" }) + " text-xs"}>
+                  {unreadNotifications.length} new
+                </div>
               </div>
               <div className="max-h-96 overflow-y-auto">
                 {notifications.length === 0 ? (

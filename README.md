@@ -1,73 +1,72 @@
-# Welcome to your Lovable project
+# UnQWorkFlow 🚀
 
-## Project info
+An AI-powered autonomous content creation and management platform designed to streamline workflows for YouTube and Instagram creators. Built with a modern tech stack and a focus on a seamless user experience.
 
-**URL**: https://lovable.dev/projects/743bfd86-361e-4432-9509-629e22b35d2d
+![UnQWorkFlow Screenshot](https://via.placeholder.com/1200x600.png?text=UnQWorkFlow+Dashboard+Preview)
+*(Note: You can replace the placeholder URL with a real screenshot after deployment)*
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ✨ Key Features
 
-**Use Lovable**
+- **AI-Powered Content Generation:** Create videos and scripts from simple text prompts.
+- **Multi-Channel Management:** Connect and manage multiple YouTube and Instagram accounts seamlessly.
+- **Advanced Dashboard:** Real-time analytics, content status, and performance metrics.
+- **Modern UI/UX:** A stunning glassmorphism interface with a command palette (`Cmd+K`) for rapid navigation.
+- **Dynamic & Responsive:** Built with Tailwind CSS for perfect responsiveness on all devices.
+- **Robust Tech Stack:** Fully type-safe with TypeScript, ensuring a stable and maintainable codebase.
+- **Micro-interactions:** Subtle animations and skeleton loaders for a premium user experience.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/743bfd86-361e-4432-9509-629e22b35d2d) and start prompting.
+## 🛠️ Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend:** React, TypeScript, Vite
+- **Styling:** Tailwind CSS
+- **UI Components:** Shadcn/ui
+- **State Management:** Zustand
+- **Animations:** Framer Motion (or custom Tailwind animations)
+- **AI Integration:** Ready for Google Gemini API
 
-**Use your preferred IDE**
+## 🚀 Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Follow these steps to get a local copy up and running.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
 
-Follow these steps:
+Make sure you have `bun` installed on your machine.
+- [Bun Installation Guide](https://bun.sh/docs/installation)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1.  Clone the repository:
+    ```sh
+    git clone https://github.com/[YOUR_GITHUB_USERNAME]/unqworkflow.git
+    ```
+2.  Navigate to the project directory:
+    ```sh
+    cd unqworkflow
+    ```
+3.  Install dependencies:
+    ```sh
+    bun install
+    ```
+4.  Run the development server:
+    ```sh
+    bun dev
+    ```
+The application will be available at `http://localhost:5173`.
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🚢 Deployment
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+This project is optimized for deployment on **Vercel**.
 
-**Edit a file directly in GitHub**
+1.  Push your code to your GitHub repository.
+2.  Go to your Vercel dashboard and import the project from GitHub.
+3.  Vercel will automatically detect the Vite configuration and deploy the application.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 👤 Author
 
-**Use GitHub Codespaces**
+**Sandeep Gaddam**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📄 License
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/743bfd86-361e-4432-9509-629e22b35d2d) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License. See the `LICENSE` file for details.

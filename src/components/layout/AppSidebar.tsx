@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useState } from 'react';
 import { 
   LayoutDashboard, 
@@ -12,7 +13,6 @@ import {
   Instagram,
   ChevronDown,
   Activity,
-  Zap,
   TrendingUp
 } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -32,9 +32,18 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Badge } from '@/components/ui/badge';
+import { Badge, badgeVariants } from '@/components/ui/badge';
 
-const mainNavItems = [
+interface NavItem {
+  title: string;
+  url: string;
+  icon: React.ElementType;
+  exact?: boolean;
+  badge?: string;
+  subItems?: NavItem[];
+}
+
+const mainNavItems: NavItem[] = [
   { 
     title: 'Dashboard', 
     url: '/', 
@@ -91,7 +100,7 @@ const mainNavItems = [
 
 export function AppSidebar() {
   const { open, isMobile } = useSidebar();
-  const collapsed = !open;
+  const collapsed = !open && !isMobile; // Only collapse if not mobile and not open
   const location = useLocation();
   const currentPath = location.pathname;
   const { dashboardMetrics } = useAppStore();
@@ -105,7 +114,7 @@ export function AppSidebar() {
   const getNavClassName = (path: string, exact = false) => {
     const active = isActive(path, exact);
     return active 
-      ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium border-r-2 border-sidebar-primary' 
+      ? 'bg-gradient-to-r from-orange-500/20 to-amber-500/20 text-sidebar-accent-foreground font-medium border-r-2 border-sidebar-primary' 
       : 'hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground';
   };
 
@@ -127,12 +136,12 @@ export function AppSidebar() {
         <div className="flex items-center gap-3 px-3 py-4 mb-2">
           <div className="flex-shrink-0">
             <img 
-              src="/lovable-uploads/ac903849-8136-4b0b-8646-60a26c3121b4.png" 
+              src="/unq-logo.png" 
               alt="UnQWorkFlow" 
               className="w-8 h-8"
             />
           </div>
-          {!collapsed && (
+          {(!collapsed || isMobile) && (
             <div className="flex flex-col">
               <span className="font-bold text-sidebar-primary text-lg">UnQWorkFlow</span>
               <span className="text-xs text-sidebar-foreground/60">AI Content Platform</span>
@@ -141,14 +150,14 @@ export function AppSidebar() {
         </div>
 
         {/* Quick Stats */}
-        {!collapsed && dashboardMetrics && (
+        {(!collapsed || isMobile) && dashboardMetrics && (
           <div className="px-3 mb-4">
             <div className="bg-sidebar-accent/30 rounded-lg p-3 space-y-2">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-sidebar-foreground/70">Active</span>
-                <Badge variant="secondary" className="text-xs">
+                <div className={badgeVariants({ variant: "secondary" }) + " text-xs"}>
                   {dashboardMetrics.activeGenerations}
-                </Badge>
+                </div>
               </div>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-sidebar-foreground/70">Channels</span>
@@ -180,9 +189,9 @@ export function AppSidebar() {
                         >
                           <div className="flex items-center gap-2">
                             <item.icon className="h-4 w-4" />
-                            {!collapsed && <span>{item.title}</span>}
+                            {(!collapsed || isMobile) && <span>{item.title}</span>}
                           </div>
-                          {!collapsed && (
+                          {(!collapsed || isMobile) && (
                             <ChevronDown className={`h-4 w-4 transition-transform ${
                               openGroups.includes(item.title.toLowerCase().replace(' ', '-')) 
                                 ? 'rotate-180' 
@@ -191,7 +200,7 @@ export function AppSidebar() {
                           )}
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
-                      {!collapsed && (
+                      {(!collapsed || isMobile) && (
                         <CollapsibleContent>
                           <SidebarMenuSub>
                             {item.subItems.map((subItem) => (
@@ -223,13 +232,13 @@ export function AppSidebar() {
                         className={getNavClassName(item.url, item.exact)}
                       >
                         <item.icon className="h-4 w-4" />
-                        {!collapsed && (
+                        {(!collapsed || isMobile) && (
                           <div className="flex items-center justify-between flex-1">
                             <span>{item.title}</span>
                             {item.badge && (
-                              <Badge variant="outline" className="text-xs">
+                              <div className={badgeVariants({ variant: "outline" }) + " text-xs"}>
                                 {item.badge}
-                              </Badge>
+                              </div>
                             )}
                           </div>
                         )}
@@ -243,7 +252,7 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Status Indicator */}
-        {!collapsed && (
+        {(!collapsed || isMobile) && (
           <div className="mt-auto p-3">
             <div className="flex items-center gap-2 text-sm text-sidebar-foreground/60">
               <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
