@@ -1,0 +1,29 @@
+# Core ML dependencies
+torch==2.1.0
+torchvision==0.16.0
+torchaudio==2.1.0
+transformers==4.35.0
+diffusers==0.24.0
+accelerate==0.24.1
+
+# Video processing
+opencv-python==4.8.1.78
+moviepy==1.0.3
+ffmpeg-python==0.2.0
+imageio==2.31.5
+imageio-ffmpeg==0.4.8
+
+# Utilities
+numpy==1.24.4
+scipy==1.11.3
+pillow==10.1.0
+tqdm==4.66.1
+requests==2.31.0
+pyyaml==6.0.1
+
+# Visualization
+matplotlib==3.8.0
+ipywidgets==8.1.1
+
+# Google Drive integration
+gdown==4.7.1 
