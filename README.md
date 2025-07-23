@@ -2,8 +2,7 @@
 
 An AI-powered autonomous content creation and management platform designed to streamline workflows for YouTube and Instagram creators. Built with a modern tech stack and a focus on a seamless user experience.
 
-![UnQWorkFlow Screenshot](https://via.placeholder.com/1200x600.png?text=UnQWorkFlow+Dashboard+Preview)
-*(Note: You can replace the placeholder URL with a real screenshot after deployment)*
+<img src="public/assets/logo.png" alt="UnQWorkFlow Logo" width="200" />
 
 ---
 

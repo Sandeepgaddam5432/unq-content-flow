@@ -136,7 +136,7 @@ export function AppSidebar() {
         <div className="flex items-center gap-3 px-3 py-4 mb-2">
           <div className="flex-shrink-0">
             <img 
-              src="/unq-logo.png" 
+              src="/assets/logo.png" 
               alt="UnQWorkFlow" 
               className="w-8 h-8"
             />
