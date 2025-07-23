@@ -25,6 +25,26 @@ An AI-powered autonomous content creation and management platform designed to st
 - **Animations:** Framer Motion (or custom Tailwind animations)
 - **AI Integration:** Ready for Google Gemini API
 
+## 🎬 Video Generation Engine
+
+The project includes a Google Colab-based AI video generation engine that uses the wan2.1 text-to-video model.
+
+### Features
+
+- **Smart Model Caching:** Efficiently caches the large model in Google Drive to avoid re-downloading
+- **Idempotent Design:** Run the notebook multiple times without redundant operations
+- **GitHub Integration:** Automatically syncs with the latest code from the repository
+- **Interactive UI:** Simple interface to test and generate videos from text prompts
+
+### How to Use
+
+1. Open the `video_generator.ipynb` notebook in Google Colab
+2. Update the GitHub repository URL in the configuration cell
+3. Run all cells in sequence
+4. Use the interactive UI to generate videos from text prompts
+
+**Note:** The notebook requires a Google Colab environment with GPU acceleration and approximately 15GB of free space in your Google Drive.
+
 ## 🚀 Getting Started
 
 Follow these steps to get a local copy up and running.
