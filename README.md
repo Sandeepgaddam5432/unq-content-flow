@@ -58,7 +58,7 @@ Make sure you have `bun` installed on your machine.
 
 1.  Clone the repository:
     ```sh
-    git clone https://github.com/[YOUR_GITHUB_USERNAME]/unqworkflow.git
+    git clone https://github.com/Sandeepgaddam5432/unq-content-flow.git
     ```
 2.  Navigate to the project directory:
     ```sh
