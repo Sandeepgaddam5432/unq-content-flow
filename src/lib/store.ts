@@ -11,6 +11,10 @@ interface AppState {
   sidebarCollapsed: boolean;
   theme: 'light' | 'dark' | 'system';
   
+  // Backend Connection
+  backendUrl: string | null;
+  isBackendConnected: boolean;
+  
   // Data State
   dashboardMetrics: DashboardMetrics | null;
   contentGenerations: ContentGeneration[];
@@ -30,6 +34,8 @@ interface AppState {
   setAuthenticated: (authenticated: boolean) => void;
   setSidebarCollapsed: (collapsed: boolean) => void;
   setTheme: (theme: 'light' | 'dark' | 'system') => void;
+  setBackendUrl: (url: string | null) => void;
+  setBackendConnected: (connected: boolean) => void;
   setDashboardMetrics: (metrics: DashboardMetrics) => void;
   addContentGeneration: (generation: ContentGeneration) => void;
   updateContentGeneration: (id: string, updates: Partial<ContentGeneration>) => void;
@@ -48,6 +54,8 @@ export const useAppStore = create<AppState>()(
       isAuthenticated: false,
       sidebarCollapsed: false,
       theme: 'system',
+      backendUrl: null,
+      isBackendConnected: false,
       dashboardMetrics: null,
       contentGenerations: [],
       scheduledContent: [],
@@ -64,6 +72,8 @@ export const useAppStore = create<AppState>()(
       setAuthenticated: (isAuthenticated) => set({ isAuthenticated }),
       setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
       setTheme: (theme) => set({ theme }),
+      setBackendUrl: (backendUrl) => set({ backendUrl }),
+      setBackendConnected: (isBackendConnected) => set({ isBackendConnected }),
       setDashboardMetrics: (dashboardMetrics) => set({ dashboardMetrics }),
       
       addContentGeneration: (generation) =>
@@ -108,7 +118,9 @@ export const useAppStore = create<AppState>()(
         user: state.user,
         isAuthenticated: state.isAuthenticated,
         theme: state.theme,
-        sidebarCollapsed: state.sidebarCollapsed
+        sidebarCollapsed: state.sidebarCollapsed,
+        backendUrl: state.backendUrl,
+        isBackendConnected: state.isBackendConnected
       })
     }
   )

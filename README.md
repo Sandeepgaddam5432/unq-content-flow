@@ -1,5 +1,7 @@
 # UnQWorkFlow 🚀
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Sandeepgaddam5432/unq-content-flow/blob/main/video_generator.ipynb)
+
 An AI-powered autonomous content creation and management platform designed to streamline workflows for YouTube and Instagram creators. Built with a modern tech stack and a focus on a seamless user experience.
 
 <img src="public/assets/logo.png" alt="UnQWorkFlow Logo" width="200" />
@@ -23,27 +25,21 @@ An AI-powered autonomous content creation and management platform designed to st
 - **UI Components:** Shadcn/ui
 - **State Management:** Zustand
 - **Animations:** Framer Motion (or custom Tailwind animations)
-- **AI Integration:** Ready for Google Gemini API
+- **AI Integration:** Real-time connection to Google Colab via Cloudflare Tunnels
 
-## 🎬 Video Generation Engine
+## 🎬 AI Video Generation Engine (Backend)
 
-The project includes a Google Colab-based AI video generation engine that uses the wan2.1 text-to-video model.
+This project uses a Google Colab notebook as a live, GPU-powered backend server. It connects to our frontend application in real-time using a secure Cloudflare Tunnel.
 
-### Features
+### How It Works
 
-- **Smart Model Caching:** Efficiently caches the large model in Google Drive to avoid re-downloading
-- **Idempotent Design:** Run the notebook multiple times without redundant operations
-- **GitHub Integration:** Automatically syncs with the latest code from the repository
-- **Interactive UI:** Simple interface to test and generate videos from text prompts
+1. **Click the "Open in Colab" button** above to open the notebook.
+2. **Run All Cells:** In Colab, go to `Runtime > Run all`. This will mount your Google Drive, install dependencies, and download the AI models (this happens only once).
+3. **Get Your Backend URL:** The final cell will start a web server and generate a public URL that looks like `https://something-random.trycloudflare.com`.
+4. **Connect the Frontend:** Copy this unique URL. Go to your UnQWorkFlow website, find the "Backend Settings" or "Connect to AI Engine" section, and paste the URL there.
+5. **Start Creating!** Once connected, you can start generating videos directly from the website. The Colab notebook will process your requests in real-time.
 
-### How to Use
-
-1. Open the `video_generator.ipynb` notebook in Google Colab
-2. Update the GitHub repository URL in the configuration cell
-3. Run all cells in sequence
-4. Use the interactive UI to generate videos from text prompts
-
-**Note:** The notebook requires a Google Colab environment with GPU acceleration and approximately 15GB of free space in your Google Drive.
+**Important:** The Colab notebook must remain running for the backend to be active. If the Colab session ends, you will need to re-run the notebook to get a new URL.
 
 ## 🚀 Getting Started
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Wand2, Youtube, Instagram, Clock, Users, Tag, Settings, Sparkles } from 'lucide-react';
+import { Plus, Wand2, Youtube, Instagram, Clock, Users, Tag, Settings, Sparkles, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,6 +17,8 @@ import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useAppStore } from '../lib/store';
+import { BackendConnector } from '@/components/layout/BackendConnector';
+import { toast } from '@/components/ui/use-toast';
 
 const contentTypes = [
   { value: 'educational', label: 'Educational', description: 'How-to guides, tutorials, tips' },
@@ -57,7 +59,7 @@ const voiceOptions = [
 ];
 
 export default function ContentCreation() {
-  const { addContentGeneration, user } = useAppStore();
+  const { addContentGeneration, user, isBackendConnected, backendUrl } = useAppStore();
   const [formData, setFormData] = useState({
     topic: '',
     description: '',
@@ -103,16 +105,26 @@ export default function ContentCreation() {
   const handleGenerate = async () => {
     if (!formData.topic.trim()) return;
     
+    // Check if backend is connected
+    if (!isBackendConnected || !backendUrl) {
+      toast({
+        title: "Backend Not Connected",
+        description: "Please connect to the AI Engine before generating content.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsGenerating(true);
     
-    // Create new content generation
+    // Create new content generation object
     const newGeneration = {
       id: Date.now().toString(),
       topic: formData.topic,
       duration: formData.duration === 'custom' ? formData.customDuration : (formData.duration as number),
       contentType: formData.contentType,
       targetAudience: formData.targetAudience,
-      status: 'queued' as const,
+      status: 'generating' as const,
       progress: 0,
       channelId: formData.channelId,
       platform: formData.platform,
@@ -120,10 +132,55 @@ export default function ContentCreation() {
       estimatedCompletion: new Date(Date.now() + 30 * 60 * 1000).toISOString()
     };
     
+    // Add to UI state immediately
     addContentGeneration(newGeneration);
     
-    // Simulate generation process
-    setTimeout(() => {
+    try {
+      // Send request to backend API
+      const response = await fetch(`${backendUrl}/api/generate-video`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt: formData.topic,
+          duration: formData.duration === 'custom' ? formData.customDuration : (formData.duration as number),
+          content_type: formData.contentType,
+          target_audience: formData.targetAudience,
+          voice: formData.voice,
+          seo_optimization: formData.seoOptimization,
+          tags: formData.tags,
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+      
+      const result = await response.json();
+      
+      // Update generation with result from API
+      if (result.status === 'success') {
+        toast({
+          title: "Video Generation Complete",
+          description: `Your video has been generated successfully in ${Math.round(result.generation_time_minutes)} minutes.`,
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Video Generation Failed",
+          description: result.message || "An unknown error occurred",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error generating video:', error);
+      toast({
+        title: "Video Generation Failed",
+        description: error instanceof Error ? error.message : "An unknown error occurred",
+        variant: "destructive",
+      });
+    } finally {
       setIsGenerating(false);
       // Reset form
       setFormData({
@@ -142,7 +199,7 @@ export default function ContentCreation() {
         tags: [],
         channelId: 'default'
       });
-    }, 2000);
+    }
   };
 
   const filteredDurations = durations.filter(d => 
@@ -164,6 +221,22 @@ export default function ContentCreation() {
           Presets
         </Button>
       </div>
+      
+      {/* Backend Connection Status */}
+      {!isBackendConnected && (
+        <Card className="bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-2 text-yellow-700 dark:text-yellow-400 mb-4">
+              <AlertTriangle className="h-5 w-5" />
+              <h3 className="font-medium">AI Engine Not Connected</h3>
+            </div>
+            <p className="text-sm text-yellow-600 dark:text-yellow-500 mb-4">
+              You need to connect to the AI Engine running in Google Colab before you can generate videos.
+            </p>
+            <BackendConnector />
+          </CardContent>
+        </Card>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Main Creation Form */}
